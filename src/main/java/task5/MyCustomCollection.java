@@ -10,7 +10,7 @@ import static java.util.Arrays.copyOf;
 /**
  * A class that simulates the operation of a dynamic collection class
  */
-public class MyCustomCollection<T> {
+public class MyCustomCollection<T> implements IMyCustomCollection<T> {
     private T[] collection;
     private static final int DEFAULT_CAPACITY = 10;
 
@@ -26,6 +26,7 @@ public class MyCustomCollection<T> {
         return collection;
     }
 
+    @Override
     public void addItem(T newItem) {
         try {
             if (collection.length * 0.75 <= getCurrentSize()) {
@@ -37,6 +38,7 @@ public class MyCustomCollection<T> {
         }
     }
 
+    @Override
     public void deleteItemByValue(T item) {
         if (checkContains(item)) {
             collection = ArrayUtils.removeElement(collection, item);
@@ -46,6 +48,7 @@ public class MyCustomCollection<T> {
         }
     }
 
+    @Override
     public T getItemByIndex(int index) {
         try {
             return ArrayUtils.get(collection, index);
@@ -55,14 +58,17 @@ public class MyCustomCollection<T> {
         }
     }
 
+    @Override
     public boolean checkContains(T item) {
         return ArrayUtils.contains(collection, item);
     }
 
+    @Override
     public void clearCollection() {
         collection = (T[]) Array.newInstance(Object.class, collection.length);
     }
 
+    @Override
     public int getCurrentSize() {
         int count = 0;
         for (T item : collection) {
@@ -71,6 +77,26 @@ public class MyCustomCollection<T> {
             }
         }
         return count;
+    }
+
+    @Override
+    public String toString() {
+        return "MyCustomCollection{" +
+                "collection=" + Arrays.toString(collection) +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        MyCustomCollection<?> that = (MyCustomCollection<?>) o;
+        return Arrays.equals(collection, that.collection);
+    }
+
+    @Override
+    public int hashCode() {
+        return Arrays.hashCode(collection);
     }
 
     /**
@@ -97,25 +123,5 @@ public class MyCustomCollection<T> {
         System.out.println("<<<<clear collection");
         myCollection.clearCollection();
         System.out.println(myCollection);
-    }
-
-    @Override
-    public String toString() {
-        return "MyCustomCollection{" +
-                "collection=" + Arrays.toString(collection) +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-        MyCustomCollection<?> that = (MyCustomCollection<?>) o;
-        return Arrays.equals(collection, that.collection);
-    }
-
-    @Override
-    public int hashCode() {
-        return Arrays.hashCode(collection);
     }
 }

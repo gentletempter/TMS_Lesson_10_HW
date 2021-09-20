@@ -15,7 +15,7 @@ public class Journal {
         ListIterator<Student> listIterator = studentsList.listIterator();
         bestStudent = studentsList.get(0);
         while (listIterator.hasNext()) {
-            if (bestStudent.averageScore < listIterator.next().averageScore) {
+            if (bestStudent.getAverageScore() < listIterator.next().getAverageScore()) {
                 bestStudent = listIterator.previous();
             }
         }

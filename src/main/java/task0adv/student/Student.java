@@ -7,10 +7,10 @@ import java.util.Objects;
  * The class representing the student
  */
 public class Student {
-    String name;
-    String surname;
-    int age;
-    public float averageScore;
+    private String name;
+    private String surname;
+    private int age;
+    private float averageScore;
 
     public Student(String name, String surname, int age, float averageScore) {
         this.name = name;
